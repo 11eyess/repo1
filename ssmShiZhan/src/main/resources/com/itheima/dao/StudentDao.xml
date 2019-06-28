@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.StudentDao">
+    <!--
+        1、namespcace写接口权限定名
+        2、id写方法名称  分大小写
+        3、parameterType方法参数类型
+        4、resultType方法返回值类型  如果是list写泛型类型
+    -->
+    <select id="findAll"  resultType="sTuDent">
+        select * from t_student
+    </select>
+    <insert id="add" parameterType="student">
+        insert into t_student values(#{id},#{name},#{sex},#{age},#{address})
+    </insert>
+
+    <!--
+        Integer[] ids  collection="array"
+        List ids   collection="list"
+     -->
+    <delete id="del" parameterType="java.util.ArrayList">
+        delete from t_student
+        where
+        <foreach collection="list" open="id in (" close=" )" separator="," item="id">
+            #{id}
+        </foreach>
+
+    </delete>
+    
+</mapper>
